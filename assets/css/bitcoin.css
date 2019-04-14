@@ -1,0 +1,80 @@
+p {
+  text-align: justify;
+}
+ol.refs {
+  list-style: none;
+  counter-reset: refs-counter;
+}
+ol.refs li {
+  position: relative;
+  counter-increment: refs-counter;
+}
+ol.refs li::before {
+  content: "[" counter(refs-counter) "]";
+  position: absolute;
+  --size: 1.5rem;
+  left: calc(-1 * var(--size));
+}
+article#bitcoin {
+  /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
+  font-family: 'Noto Serif',serif;
+}
+
+
+/* Begin Footnote */
+/**
+ * Initialiazing a `footnotes` counter on the wrapper
+ */
+article#bitcoin {
+  counter-reset: footnotes;
+}
+/**
+ * Inline footnotes references
+ * 1. Increment the counter at each new reference
+ * 2. Reset link styles to make it appear like regular text
+ */
+[aria-describedby="footnotes"] {
+  counter-increment: footnotes; /* 1 */
+  text-decoration: none; /* 2 */
+  color: inherit; /* 2 */
+  cursor: default; /* 2 */
+  outline: none; /* 2 */
+}
+/**
+* Actual numbered references
+* 1. Display the current state of the counter (e.g. `[1]`)
+* 2. Align text as superscript
+* 3. Make the number smaller (since it's superscript)
+* 4. Slightly offset the number from the text
+* 5. Reset link styles on the number to show it's usable
+*/
+[aria-describedby="footnotes"]::after {
+  content: '[' counter(footnotes) ']'; /* 1 */
+  vertical-align: super; /* 2 */
+  font-size: 0.65em; /* 3 */
+  margin-left: 2px; /* 4 */
+  color: blue; /* 5 */
+  text-decoration: underline; /* 5 */
+  cursor: pointer; /* 5 */
+}
+/**
+* Resetting the default focused styles on the number
+*/
+[aria-describedby="footnotes"]:focus::after {
+  outline: thin dotted;
+  outline-offset: 2px;
+}
+[aria-label="Quay lại"] {
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/**
+* Highlight target note
+*/
+#footnotes :target {
+  background: yellow;
+  border-radius: 7px;
+}
+/* End Footnote */
